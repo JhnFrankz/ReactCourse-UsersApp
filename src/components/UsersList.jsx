@@ -1,6 +1,6 @@
 import { UserRow } from "./UserRow";
 
-export const UsersList = ({ users = [] }) => {
+export const UsersList = ({ handlerRemoveUser, users = [] }) => {
 
     return (
         <table className="table table-hover table-striped">
@@ -22,7 +22,8 @@ export const UsersList = ({ users = [] }) => {
                             key={id}
                             id={id}
                             username={username}
-                            email={email} />
+                            email={email}
+                            handlerRemoveUser={handlerRemoveUser} />
                     ))
                     // ; da error porque no es un elemento jsx valido y no se puede renderizar en el navegador
                     // no podemos usar console.log() dentro de un return porque no es un elemento JSX valido, los elementos jsx validos son los que se pueden renderizar en el navegador
