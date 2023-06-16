@@ -9,7 +9,7 @@ const initialUserForm = {
 export const UserForm = () => {
 
     const [userForm, setUserForm] = useState(initialUserForm);
-    
+
     const { username, password, email } = userForm;
 
     const onInputChange = ({ target }) => {
@@ -19,11 +19,23 @@ export const UserForm = () => {
             [name]: value,
             // propiedad computada sirve para que el nombre de la propiedad sea el valor de la variable name
         });
+    };
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+
+        if (!username || !password || !email) {
+            alert('Debe completar todos los campos');
+            return;
+        }
         console.log(userForm);
+
+        // guardar el userForm en el lista de usuarios
+        setUserForm(initialUserForm);
     };
 
     return (
-        <form>
+        <form onSubmit={onSubmit}>
             <input
                 className="form-control my-3 w-75"
                 placeholder="Username"
