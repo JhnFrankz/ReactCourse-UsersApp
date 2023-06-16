@@ -6,7 +6,7 @@ const initialUserForm = {
     email: '',
 };
 
-export const UserForm = () => {
+export const UserForm = ({ handlerAddUser }) => {
 
     const [userForm, setUserForm] = useState(initialUserForm);
 
@@ -28,9 +28,11 @@ export const UserForm = () => {
             alert('Debe completar todos los campos');
             return;
         }
-        console.log(userForm);
+        // console.log(userForm);
 
+        // funciona porque el componente padre UsersApp le pasa el handlerAddUser como prop, y el componente hijo UserForm lo recibe como prop, es decir, el componente hijo UserForm recibe una funcion como prop, y esa funcion es la que se ejecuta cuando se hace submit del formulario
         // guardar el userForm en el lista de usuarios
+        handlerAddUser(userForm);
         setUserForm(initialUserForm);
     };
 
@@ -39,13 +41,13 @@ export const UserForm = () => {
             <input
                 className="form-control my-3 w-75"
                 placeholder="Username"
-                name="username" 
+                name="username"
                 value={username}
                 onChange={onInputChange} />
             <input
                 className="form-control my-3 w-75"
                 placeholder="Password"
-                name="password" 
+                name="password"
                 value={password}
                 type="password"
                 onChange={onInputChange} />
