@@ -1,6 +1,6 @@
 import { UserRow } from "./UserRow";
 
-export const UsersList = ({ handlerRemoveUser, users = [] }) => {
+export const UsersList = ({ handlerUserSelectedForm, handlerRemoveUser, users = [] }) => {
 
     return (
         <table className="table table-hover table-striped">
@@ -17,12 +17,14 @@ export const UsersList = ({ handlerRemoveUser, users = [] }) => {
                 {
                     // usamos las llaves anteriores para que el return sea explicito
                     // usamos parentesis para que el return sea implicito y no sea necesario escribirlo
-                    users.map(({ id, username, email }) => (
+                    users.map(({ id, username, email, password }) => (
                         <UserRow
                             key={id}
                             id={id}
                             username={username}
                             email={email}
+                            password={password}
+                            handlerUserSelectedForm={handlerUserSelectedForm}
                             handlerRemoveUser={handlerRemoveUser} />
                     ))
                     // ; da error porque no es un elemento jsx valido y no se puede renderizar en el navegador
