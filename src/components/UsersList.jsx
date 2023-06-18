@@ -17,13 +17,12 @@ export const UsersList = ({ handlerUserSelectedForm, handlerRemoveUser, users = 
                 {
                     // usamos las llaves anteriores para que el return sea explicito
                     // usamos parentesis para que el return sea implicito y no sea necesario escribirlo
-                    users.map(({ id, username, email, password }) => (
+                    users.map(({ id, username, email }) => (
                         <UserRow
                             key={id}
                             id={id}
                             username={username}
                             email={email}
-                            password={password}
                             handlerUserSelectedForm={handlerUserSelectedForm}
                             handlerRemoveUser={handlerRemoveUser} />
                     ))
