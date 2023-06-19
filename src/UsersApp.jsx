@@ -4,7 +4,8 @@ import { UsersPage } from "./pages/UsersPage";
 import { loginReducer } from "./auth/reducers/loginReducer";
 import Swal from "sweetalert2";
 
-const initialLogin = {
+// si existe el login en el sessionStorage, se obtiene, sino se crea un objeto con los valores por defecto
+const initialLogin = JSON.parse(sessionStorage.getItem('login')) || {
     isAuth: false,
     user: undefined,
 };
@@ -21,6 +22,11 @@ export const UsersApp = () => {
                 type: 'login',
                 payload: user,
             });
+
+            sessionStorage.setItem('login', JSON.stringify({
+                isAuth: true,
+                user,
+            }));
         } else {
             Swal.fire('Error Login', 'Username o password inválidos', 'error');
         }
