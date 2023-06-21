@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import { loginReducer } from "../reducers/loginReducer";
 import Swal from "sweetalert2";
+import { loginUser } from "../services/authService";
 
 // si existe el login en el sessionStorage, se obtiene, sino se crea un objeto con los valores por defecto
 const initialLogin = JSON.parse(sessionStorage.getItem('login')) || {
@@ -13,7 +14,10 @@ export const useAuth = () => {
     const [login, dispatch] = useReducer(loginReducer, initialLogin);
 
     const handlerLogin = ({ username, password }) => {
-        if (username === 'admin' && password === '12345') {
+        
+        const isLogin = loginUser({ username, password });
+
+        if (isLogin) {
             // este objeto simula la respuesta del backend
             const user = { username: 'admin' };
             dispatch({
