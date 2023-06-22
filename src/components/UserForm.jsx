@@ -15,12 +15,14 @@ export const UserForm = ({ userSelected, handlerAddUser, initialUserForm, handle
     }, [userSelected]);
 
     const onInputChange = ({ target }) => {
+        console.log(target.parentNode);
         const { name, value } = target;
         setUserForm({
             ...userForm,
             [name]: value,
             // propiedad computada sirve para que el nombre de la propiedad sea el valor de la variable name
         });
+        console.log('userForm', userForm);
     };
 
     const onSubmit = (event) => {
@@ -79,12 +81,14 @@ export const UserForm = ({ userSelected, handlerAddUser, initialUserForm, handle
                 type="submit">
                 {id > 0 ? 'Editar' : 'Crear'}
             </button>
-            <button
-                className="btn btn-primary mx-2"
-                type="button" 
-                onClick={() => onCloseForm()}>
-                Cerrar
-            </button>
+
+            { // cuando se pasa la prop handlerCloseForm, se muestra el boton cerrar ya que es modal
+                !handlerCloseForm || <button
+                    className="btn btn-primary mx-2"
+                    type="button"
+                    onClick={() => onCloseForm()}>
+                    Cerrar
+                </button>}
         </form>
     );
 };

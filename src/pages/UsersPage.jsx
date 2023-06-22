@@ -1,21 +1,17 @@
-
 import { UserModalForm } from "../components/UserModalForm";
 import { UsersList } from "../components/UsersList";
-import { useUsers } from "../hooks/useUsers";
 
-export const UsersPage = () => {
-
-    const {
-        users,
-        userSelected,
-        initialUserForm,
-        visibleForm,
-        handlerAddUser,
-        handlerRemoveUser,
-        handlerUserSelectedForm,
-        handlerOpenForm,
-        handlerCloseForm,
-    } = useUsers();
+export const UsersPage = ({
+    users,
+    userSelected,
+    initialUserForm,
+    visibleForm,
+    handlerAddUser,
+    handlerRemoveUser,
+    handlerUserSelectedForm,
+    handlerOpenForm,
+    handlerCloseForm,
+}) => {
 
     return (
         <>
@@ -23,7 +19,7 @@ export const UsersPage = () => {
                 !visibleForm ||
                 <UserModalForm
                     userSelected={userSelected}
-                    initialUserForm={initialUserForm}
+                    initialUserForm={initialUserForm} 
                     handlerAddUser={handlerAddUser}
                     handlerCloseForm={handlerCloseForm} />
             }
