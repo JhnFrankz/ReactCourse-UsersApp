@@ -31,7 +31,16 @@ export const UserForm = ({ userSelected, handlerAddUser, initialUserForm, handle
                 'Error de validación',
                 'Debe completar todos los campos del formulario!',
                 'error'
-            )
+            );
+            return;
+        }
+
+        if (!email.includes('@')) {
+            Swal.fire(
+                'Error de validación email',
+                'El email debe ser válido, incluir un @!',
+                'error'
+            );
             return;
         }
         // console.log(userForm);
