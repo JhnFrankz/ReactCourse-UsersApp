@@ -19,7 +19,10 @@ export const UserRow = ({ handlerUserSelectedForm, handlerRemoveUser, id, userna
                 </button>
             </td>
             <td>
-                <NavLink className="btn btn-secondary btn-sm" to={'/users/edit/' + id}>Update Route</NavLink>
+                <NavLink
+                    className={'btn btn-secondary btn-sm'}
+                    to={'/users/edit/' + id}>Update Route
+                </NavLink>
             </td>
             <td>
                 <button

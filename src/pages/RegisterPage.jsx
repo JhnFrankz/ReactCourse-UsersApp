@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 import { UserForm } from "../components/UserForm";
 import { useParams } from "react-router-dom";
 
-export const RegisterPage = ({ users = [], handlerAddUser, initialUserForm }) => {
+export const RegisterPage = ({ users=[], handlerAddUser, initialUserForm }) => {
 
     // el userSelected lo manejaremos con un estado propio del componente UserForm para no mezclarlo con el modal de edicion de usuarios
     const [userSelected, setUserSelected] = useState(initialUserForm);
-    const { id } = useParams();
+    const { id } = useParams(); // obtengo el id que viene por parametro en la url
+    // tener en cuenta que el id viene como string, por eso en el useEffect lo comparo con == y no con ===
 
+    // cada vez que cambie el id, se ejecuta el useEffect
     useEffect(() => {
         console.log('id', id);
         // si encuentra un usuario con el id que viene por parametro, lo asigna a la variable user, sino asigna el initialUserForm
-        const user = users.find(u => u.id === id) || initialUserForm;
+        const user = users.find(u => u.id == id) || initialUserForm;
         setUserSelected(user);
     }, [id]);
 

@@ -15,14 +15,12 @@ export const UserForm = ({ userSelected, handlerAddUser, initialUserForm, handle
     }, [userSelected]);
 
     const onInputChange = ({ target }) => {
-        console.log(target.parentNode);
         const { name, value } = target;
         setUserForm({
             ...userForm,
             [name]: value,
             // propiedad computada sirve para que el nombre de la propiedad sea el valor de la variable name
         });
-        console.log('userForm', userForm);
     };
 
     const onSubmit = (event) => {
