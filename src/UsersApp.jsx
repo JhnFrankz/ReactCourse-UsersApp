@@ -23,7 +23,7 @@ export const UsersApp = () => {
                         <Route path="/login"
                             element={<LoginPage
                                 handlerLogin={handlerLogin} />} />
-                        <Route path="/*" element={<Navigate to="/login" />} />
+                        <Route path='/*' element={<Navigate to="/login" />} />
                     </> // si no esta logueado lo redirecciona a la pagina de login en caso de que quiera acceder a otra ruta
             }
         </Routes>
