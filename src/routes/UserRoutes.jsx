@@ -5,13 +5,13 @@ import { RegisterPage } from "../pages/RegisterPage";
 import { useUsers } from "../hooks/useUsers";
 import { UserProvider } from "../context/UserProvider";
 
-export const UserRoutes = ({ login, handlerLogout }) => {
+export const UserRoutes = () => {
 
     // todos los componentes que estén dentro de UserProvider van a tener acceso a los valores que se pasen en value
     return (
         <>
             <UserProvider>
-                <Navbar login={login} handlerLogout={handlerLogout} />
+                <Navbar />
 
                 <Routes>
                     <Route path="users" element={<UsersPage />} />

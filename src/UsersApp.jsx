@@ -16,14 +16,10 @@ export const UsersApp = () => {
                     ? (
                         // si está logueado muestra la navbar y las rutas de usuario
                         <Route path="/*"
-                            element={<UserRoutes
-                                login={login}
-                                handlerLogout={handlerLogout} />} />
+                            element={<UserRoutes />} />
                     )
                     : <>
-                        <Route path="/login"
-                            element={<LoginPage
-                                handlerLogin={handlerLogin} />} />
+                        <Route path="/login" element={<LoginPage />} />
                         <Route path='/*' element={<Navigate to="/login" />} />
                     </> // si no esta logueado lo redirecciona a la pagina de login en caso de que quiera acceder a otra ruta
             }
