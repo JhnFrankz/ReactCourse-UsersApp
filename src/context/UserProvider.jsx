@@ -1,3 +1,4 @@
+import { useUsers } from "../hooks/useUsers";
 import { UserContext } from "./UserContext";
 
 // pasamos el children para que se pueda renderizar el componente que se le pase como hijo

@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { UserRow } from "./UserRow";
+import { UserContext } from "../context/UserContext";
 
-export const UsersList = ({ handlerUserSelectedForm, handlerRemoveUser, users = [] }) => {
+export const UsersList = () => {
+
+    const { users } = useContext(UserContext);
 
     return (
         <table className="table table-hover table-striped">
@@ -23,9 +27,7 @@ export const UsersList = ({ handlerUserSelectedForm, handlerRemoveUser, users = 
                             key={id}
                             id={id}
                             username={username}
-                            email={email}
-                            handlerUserSelectedForm={handlerUserSelectedForm}
-                            handlerRemoveUser={handlerRemoveUser} />
+                            email={email} />
                     ))
                     // ; da error porque no es un elemento jsx valido y no se puede renderizar en el navegador
                     // no podemos usar console.log() dentro de un return porque no es un elemento JSX valido, los elementos jsx validos son los que se pueden renderizar en el navegador
