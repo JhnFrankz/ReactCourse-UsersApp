@@ -1,27 +1,23 @@
+import { useContext } from "react";
 import { UserModalForm } from "../components/UserModalForm";
 import { UsersList } from "../components/UsersList";
+import { UserContext } from "../context/UserContext";
 
-export const UsersPage = ({
-    users,
-    userSelected,
-    initialUserForm,
-    visibleForm,
-    handlerAddUser,
-    handlerRemoveUser,
-    handlerUserSelectedForm,
-    handlerOpenForm,
-    handlerCloseForm,
-}) => {
+export const UsersPage = () => {
+
+    const {
+        users,
+        visibleForm,
+        handlerRemoveUser,
+        handlerUserSelectedForm,
+        handlerOpenForm,
+    } = useContext(UserContext);
 
     return (
         <>
             {// si la izquierda es true, no se ejecuta la derecha
                 !visibleForm ||
-                <UserModalForm
-                    userSelected={userSelected}
-                    initialUserForm={initialUserForm} 
-                    handlerAddUser={handlerAddUser}
-                    handlerCloseForm={handlerCloseForm} />
+                <UserModalForm/>
             }
 
             <div className="container my-4">

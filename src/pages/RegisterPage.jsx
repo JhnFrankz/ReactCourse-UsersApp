@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserForm } from "../components/UserForm";
 import { useParams } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
-export const RegisterPage = ({ users = [], handlerAddUser, initialUserForm }) => {
+export const RegisterPage = () => {
 
+    const { users = [], initialUserForm } = useContext(UserContext);
     // el userSelected lo manejaremos con un estado propio del componente UserForm para no mezclarlo con el modal de edicion de usuarios
     const [userSelected, setUserSelected] = useState(initialUserForm);
     const { id } = useParams(); // obtengo el id que viene por parametro en la url
@@ -27,9 +29,8 @@ export const RegisterPage = ({ users = [], handlerAddUser, initialUserForm }) =>
                 <div className="row">
                     <div className="col">
                         <UserForm
-                            userSelected={userSelected}
-                            handlerAddUser={handlerAddUser}
-                            initialUserForm={initialUserForm} />
+                            userSelected={userSelected} />
+                            {/* se le pasa el userSelected como prop al componente UserForm para que el componente UserForm sepa si tiene que editar o registrar un usuario y no se pasa el handlerCloseForm porque el componente UserForm no tiene que cerrar el modal, sino que el componente UserModalForm lo tiene que cerrar */}
                     </div>
                 </div>
             </div>

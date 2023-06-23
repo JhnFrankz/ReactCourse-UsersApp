@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { UserForm } from "./UserForm";
+import { UserContext } from "../context/UserContext";
 
-export const UserModalForm = ({ userSelected, initialUserForm, handlerAddUser, handlerCloseForm }) => {
+export const UserModalForm = () => {
+
+    const { userSelected, handlerCloseForm } = useContext(UserContext);
 
     return (
         <>
@@ -16,10 +20,8 @@ export const UserModalForm = ({ userSelected, initialUserForm, handlerAddUser, h
                             <div className="modal-body">
                                 <UserForm
                                     userSelected={userSelected}
-                                    initialUserForm={initialUserForm}
-                                    handlerAddUser={handlerAddUser}
                                     handlerCloseForm={handlerCloseForm} />
-
+                                    {/* se pasan los props handlerCloseForm para que el boton cancelar del formulario pueda cerrar el modal y el userSelected para que el formulario sepa si esta editando o creando un usuario */}
                             </div>
                         </div>
                     </div>
