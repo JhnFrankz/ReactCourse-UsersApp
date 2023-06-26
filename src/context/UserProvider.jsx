@@ -14,6 +14,7 @@ export const UserProvider = ({ children }) => {
         handlerUserSelectedForm,
         handlerOpenForm,
         handlerCloseForm,
+        getUsers
     } = useUsers();
     // el useUsers() solamente se ejecutará una vez
 
@@ -31,6 +32,7 @@ export const UserProvider = ({ children }) => {
                 handlerUserSelectedForm,
                 handlerOpenForm,
                 handlerCloseForm,
+                getUsers,
             }
         }>
             {children}

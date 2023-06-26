@@ -2,15 +2,9 @@ import { useReducer, useState } from "react";
 import { usersReducer } from "../reducers/usersReducer";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { findAll } from "../services/userService";
 
-const initialUsers = [
-    {
-        id: 1,
-        username: 'pepe',
-        password: '12345',
-        email: 'pepe@correo.com',
-    }
-];
+const initialUsers = [];
 
 const initialUserForm = {
     id: 0,
@@ -25,6 +19,18 @@ export const useUsers = () => {
     const [userSelected, setUserSelected] = useState(initialUserForm);
     const [visibleForm, setVisibleForm] = useState(false);
     const navigate = useNavigate();
+
+    // esta función se ejecuta cuando se carga el componente
+    // y se encarga de obtener los usuarios de la API
+    // se actualiza users con los usuarios obtenidos en el contexto
+    const getUsers = async () => {
+        const result = await findAll();
+        console.log(result);
+        dispatch({
+            type: 'loadingUsers',
+            payload: result.data,
+        });
+    };
 
     const handlerAddUser = (user) => {
         // console.log(user);
@@ -98,5 +104,6 @@ export const useUsers = () => {
         handlerUserSelectedForm,
         handlerOpenForm,
         handlerCloseForm,
+        getUsers,
     };
 };
