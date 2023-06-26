@@ -7,7 +7,8 @@ export const usersReducer = (state = [], action) => {
                 ...state,
                 {
                     ...action.payload,
-                    id: new Date().getTime(),
+                    // el id lo genera el backend
+                    // id: new Date().getTime(),
                 }
             ];
         case 'removeUser':
