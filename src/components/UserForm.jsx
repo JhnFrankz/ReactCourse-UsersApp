@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { UserContext } from "../context/UserContext";
 
 export const UserForm = ({ userSelected, handlerCloseForm }) => {
-    
+
     const { initialUserForm, handlerAddUser, errors } = useContext(UserContext);
     const [userForm, setUserForm] = useState(initialUserForm);
 
@@ -50,7 +50,6 @@ export const UserForm = ({ userSelected, handlerCloseForm }) => {
         // funciona porque el componente padre UsersApp le pasa el handlerAddUser como prop, y el componente hijo UserForm lo recibe como prop, es decir, el componente hijo UserForm recibe una funcion como prop, y esa funcion es la que se ejecuta cuando se hace submit del formulario
         // guardar el userForm en el lista de usuarios
         handlerAddUser(userForm);
-        setUserForm(initialUserForm);
     };
 
     const onCloseForm = () => {
@@ -66,6 +65,8 @@ export const UserForm = ({ userSelected, handlerCloseForm }) => {
                 name="username"
                 value={username}
                 onChange={onInputChange} />
+            <p className="text-danger">{errors?.username}</p>
+
             {
                 id > 0 || <input
                     className="form-control my-3 w-75"
@@ -75,16 +76,21 @@ export const UserForm = ({ userSelected, handlerCloseForm }) => {
                     type="password"
                     onChange={onInputChange} />
             }
+            <p className="text-danger">{errors?.password}</p>
+
             <input
                 className="form-control my-3 w-75"
                 placeholder="Email"
                 name="email"
                 value={email}
                 onChange={onInputChange} />
+            <p className="text-danger">{errors?.email}</p>
+
             <input
                 type="hidden"
                 name="id"
                 value={id} />
+
             <button
                 className="btn btn-primary"
                 type="submit">
