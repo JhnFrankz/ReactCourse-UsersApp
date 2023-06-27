@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext";
 
 export const UserForm = ({ userSelected, handlerCloseForm }) => {
     
-    const { initialUserForm, handlerAddUser } = useContext(UserContext);
+    const { initialUserForm, handlerAddUser, errors } = useContext(UserContext);
     const [userForm, setUserForm] = useState(initialUserForm);
 
     const { id, username, password, email } = userForm;
@@ -28,7 +28,7 @@ export const UserForm = ({ userSelected, handlerCloseForm }) => {
     const onSubmit = (event) => {
         event.preventDefault();
 
-        if (!username || (!password && id === 0) || !email) {
+        /* if (!username || (!password && id === 0) || !email) {
             Swal.fire(
                 'Error de validación',
                 'Debe completar todos los campos del formulario!',
@@ -44,7 +44,7 @@ export const UserForm = ({ userSelected, handlerCloseForm }) => {
                 'error'
             );
             return;
-        }
+        } */
         // console.log(userForm);
 
         // funciona porque el componente padre UsersApp le pasa el handlerAddUser como prop, y el componente hijo UserForm lo recibe como prop, es decir, el componente hijo UserForm recibe una funcion como prop, y esa funcion es la que se ejecuta cuando se hace submit del formulario
