@@ -32,6 +32,8 @@ export const update = async ({ id, username, email }) => {
         return await axios.put(`${BASE_URL}/${id}`, {
             username,
             email,
+            // esto da igual, el backend no lo usa
+            // password: 'nothing', 
         });
     } catch (error) {
         throw error;
