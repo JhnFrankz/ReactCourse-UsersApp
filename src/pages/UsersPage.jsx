@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { UserModalForm } from "../components/UserModalForm";
 import { UsersList } from "../components/UsersList";
 import { UserContext } from "../context/UserContext";
+import { AuthContext } from "../auth/context/AuthContext";
 
 export const UsersPage = () => {
 
@@ -12,6 +13,8 @@ export const UsersPage = () => {
         getUsers,
     } = useContext(UserContext);
 
+    const { login } = useContext(AuthContext);
+
     useEffect(() => {
         getUsers(); // funcion para cargar los usuarios
     }, []);
@@ -20,7 +23,7 @@ export const UsersPage = () => {
         <>
             {// si la izquierda es true, no se ejecuta la derecha
                 !visibleForm ||
-                <UserModalForm/>
+                <UserModalForm />
             }
 
             <div className="container my-4">
@@ -28,7 +31,9 @@ export const UsersPage = () => {
                 <div className="row">
 
                     <div className="col">
-                        {visibleForm ||
+
+                        {(visibleForm || !login.isAdmin) ||
+                            // el boton solo se muestra si no esta visible el formulario o si es admin
                             <button
                                 className="btn btn-primary my-2"
                                 onClick={handlerOpenForm}>
