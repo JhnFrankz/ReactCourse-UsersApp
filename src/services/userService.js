@@ -2,6 +2,14 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8080/users";
 
+// el config es para enviar el token en el header de las peticiones
+const config = {
+    headers: {
+        "Authorization": sessionStorage.getItem("token"),
+        "Content-Type": "application/json",
+    }
+}
+
 export const findAll = async () => {
 
     try {
@@ -20,7 +28,7 @@ export const save = async ({ username, email, password }) => {
             username,
             email,
             password,
-        });
+        }, config);
     } catch (error) {
         throw error;
     }
@@ -34,7 +42,7 @@ export const update = async ({ id, username, email }) => {
             email,
             // esto da igual, el backend no lo usa
             // password: 'nothing', 
-        });
+        }, config);
     } catch (error) {
         throw error;
     }
@@ -43,7 +51,7 @@ export const update = async ({ id, username, email }) => {
 
 export const remove = async (id) => {
     try {
-        await axios.delete(`${BASE_URL}/${id}`)
+        await axios.delete(`${BASE_URL}/${id}`, config)
     } catch (error) {
         console.log(error);
     }
