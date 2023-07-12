@@ -1,8 +1,9 @@
-import { useReducer, useState } from "react";
+import { useContext, useReducer, useState } from "react";
 import { usersReducer } from "../reducers/usersReducer";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { findAll, remove, save, update } from "../services/userService";
+import { AuthContext } from "../auth/context/AuthContext";
 
 const initialUsers = [];
 
@@ -28,6 +29,8 @@ export const useUsers = () => {
     const [errors, setErrors] = useState(initialErrors);
 
     const navigate = useNavigate();
+    
+    const { login } = useContext(AuthContext);
 
     // esta función se ejecuta cuando se carga el componente
     // y se encarga de obtener los usuarios de la API
@@ -42,7 +45,9 @@ export const useUsers = () => {
     };
 
     const handlerAddUser = async (user) => {
-        // console.log(user);
+        // si no es admin no puede crear usuarios
+        if (!login.isAdmin) return;
+
         let response;
 
         try {
@@ -91,6 +96,8 @@ export const useUsers = () => {
     };
 
     const handlerRemoveUser = (id) => {
+
+        if (!login.isAdmin) return;
         // console.log(id);
         Swal.fire({
             title: '¿Estás seguro?',
