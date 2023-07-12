@@ -3,10 +3,13 @@ import axios from "axios";
 const BASE_URL = "http://localhost:8080/users";
 
 // el config es para enviar el token en el header de las peticiones
-const config = {
-    headers: {
-        "Authorization": sessionStorage.getItem("token"),
-        "Content-Type": "application/json",
+// es una funcion ya que el token puede cambiar, si fuera una constante no se actualizaría
+const config = () => {
+    return {
+        headers: {
+            "Authorization": sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+        }
     }
 }
 
@@ -28,7 +31,7 @@ export const save = async ({ username, email, password }) => {
             username,
             email,
             password,
-        }, config);
+        }, config());
     } catch (error) {
         throw error;
     }
@@ -42,7 +45,7 @@ export const update = async ({ id, username, email }) => {
             email,
             // esto da igual, el backend no lo usa
             // password: 'nothing', 
-        }, config);
+        }, config());
     } catch (error) {
         throw error;
     }
@@ -51,7 +54,7 @@ export const update = async ({ id, username, email }) => {
 
 export const remove = async (id) => {
     try {
-        await axios.delete(`${BASE_URL}/${id}`, config)
+        await axios.delete(`${BASE_URL}/${id}`, config())
     } catch (error) {
         console.log(error);
     }
