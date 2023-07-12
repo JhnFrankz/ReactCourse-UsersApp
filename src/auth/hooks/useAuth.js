@@ -15,13 +15,15 @@ export const useAuth = () => {
     const [login, dispatch] = useReducer(loginReducer, initialLogin);
     const navigate = useNavigate();
 
-    const handlerLogin = ({ username, password }) => {
+    const handlerLogin = async ({ username, password }) => {
         
-        const isLogin = loginUser({ username, password });
 
-        if (isLogin) {
+        try {
+            // response contiene el data que contiene el token
+            const response = await loginUser({ username, password });
+            const token = response.data.token;
             // este objeto simula la respuesta del backend
-            const user = { username: 'admin' };
+            const user = { username: response.data.username };
             dispatch({
                 type: 'login',
                 payload: user,
@@ -33,7 +35,7 @@ export const useAuth = () => {
             }));
 
             navigate('/users');
-        } else {
+        } catch (error) {
             Swal.fire('Error Login', 'Username o password inválidos', 'error');
         }
     };
