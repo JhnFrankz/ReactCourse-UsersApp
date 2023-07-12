@@ -8,6 +8,7 @@ import { AuthContext } from "./auth/context/AuthContext";
 export const UsersApp = () => {
 
     const { login } = useContext(AuthContext);
+    // se podria tener un useEffect que haga una peticion a la api para ver si el token es valido cada x tiempo
 
     return (
         <Routes>

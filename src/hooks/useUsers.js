@@ -29,8 +29,8 @@ export const useUsers = () => {
     const [errors, setErrors] = useState(initialErrors);
 
     const navigate = useNavigate();
-    
-    const { login } = useContext(AuthContext);
+
+    const { login, handlerLogout } = useContext(AuthContext);
 
     // esta función se ejecuta cuando se carga el componente
     // y se encarga de obtener los usuarios de la API
@@ -88,6 +88,8 @@ export const useUsers = () => {
                 if (error.response.data?.message?.includes('UK_email')) {
                     setErrors({ email: 'El email ya existe!' });
                 }
+            } else if (error.response?.status === 401) {
+                handlerLogout();
             } else {
                 //cualquier otro error no controlado lo lanzamos
                 throw error;
@@ -107,20 +109,27 @@ export const useUsers = () => {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, eliminar'
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                remove(id); // elimina el usuario de la API
 
-                dispatch({
-                    type: 'removeUser',
-                    payload: id,
-                });
+                try {
+                    await remove(id); // elimina el usuario de la API
 
-                Swal.fire(
-                    'Usuario Eliminado!',
-                    'El usuario ha sido eliminado con éxito',
-                    'success'
-                )
+                    dispatch({
+                        type: 'removeUser',
+                        payload: id,
+                    });
+
+                    Swal.fire(
+                        'Usuario Eliminado!',
+                        'El usuario ha sido eliminado con éxito',
+                        'success'
+                    )
+                } catch (error) {
+                    if (error.response?.status === 401) {
+                        handlerLogout();
+                    }
+                }
             }
         })
     };

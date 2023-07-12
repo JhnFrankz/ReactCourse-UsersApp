@@ -56,6 +56,7 @@ export const remove = async (id) => {
     try {
         await axios.delete(`${BASE_URL}/${id}`, config())
     } catch (error) {
-        console.log(error);
+        // en caso de error devolvemos el error para hacer logout
+        throw error;
     }
 };
