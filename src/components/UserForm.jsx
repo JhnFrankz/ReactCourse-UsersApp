@@ -105,7 +105,7 @@ export const UserForm = ({ userSelected, handlerCloseForm }) => {
                     className="form-check-input"
                     onChange={onCheckboxChange}
                 />
-
+                <label className="form-check-label">Admin</label>
             </div>
 
             <input
