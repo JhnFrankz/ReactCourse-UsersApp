@@ -37,12 +37,19 @@ export const useUsers = () => {
     // y se encarga de obtener los usuarios de la API
     // se actualiza users con los usuarios obtenidos en el contexto
     const getUsers = async () => {
-        const result = await findAll();
-        console.log(result);
-        dispatch({
-            type: 'loadingUsers',
-            payload: result.data,
-        });
+
+        try {
+            const result = await findAll();
+            console.log(result);
+            dispatch({
+                type: 'loadingUsers',
+                payload: result.data,
+            });
+        } catch (error) {
+            if (error.response?.status === 401) {
+                handlerLogout();
+            }
+        }
     };
 
     const handlerAddUser = async (user) => {
