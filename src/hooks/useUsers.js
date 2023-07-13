@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { findAll, remove, save, update } from "../services/userService";
 import { AuthContext } from "../auth/context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, loadingUsers, removeUser, updateUser } from "../store/slices/users/usersSlice";
 
 const initialUsers = [];
 
@@ -23,7 +25,10 @@ const initialErrors = {
 
 export const useUsers = () => {
 
-    const [users, dispatch] = useReducer(usersReducer, initialUsers);
+    // const [users, dispatch] = useReducer(usersReducer, initialUsers);
+    const {users} = useSelector(state => state.users);
+    const dispatch = useDispatch();
+
     const [userSelected, setUserSelected] = useState(initialUserForm);
     const [visibleForm, setVisibleForm] = useState(false);
 
@@ -41,10 +46,8 @@ export const useUsers = () => {
         try {
             const result = await findAll();
             console.log(result);
-            dispatch({
-                type: 'loadingUsers',
-                payload: result.data,
-            });
+            // type es el nombre de la función y el payload es el parámetro
+            dispatch(loadingUsers(result.data));
         } catch (error) {
             if (error.response?.status === 401) {
                 handlerLogout();
@@ -60,16 +63,15 @@ export const useUsers = () => {
 
         try {
             if (user.id === 0) {
+                // parte asincrona que va al backend
                 response = await save(user);
+                // parte sincrona que actualiza el estado segun la respuesta del backend 
+                dispatch(addUser(response.data));
             } else {
                 response = await update(user);
+                dispatch(updateUser(response.data));
             }
             // el response es un axios response con la respuesta del backend
-
-            dispatch({
-                type: (user.id === 0) ? 'addUser' : 'updateUser',
-                payload: response.data, // el data contiene el usuario
-            });
 
             Swal.fire(
                 (user.id === 0) ?
@@ -123,10 +125,7 @@ export const useUsers = () => {
                 try {
                     await remove(id); // elimina el usuario de la API
 
-                    dispatch({
-                        type: 'removeUser',
-                        payload: id,
-                    });
+                    dispatch(removeUser(id));
 
                     Swal.fire(
                         'Usuario Eliminado!',
