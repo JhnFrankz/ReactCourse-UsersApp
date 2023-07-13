@@ -29,12 +29,13 @@ export const UsersList = () => {
                 {
                     // usamos las llaves anteriores para que el return sea explicito
                     // usamos parentesis para que el return sea implicito y no sea necesario escribirlo
-                    users.map(({ id, username, email }) => (
+                    users.map(({ id, username, email, admin }) => (
                         <UserRow
                             key={id}
                             id={id}
                             username={username}
-                            email={email} />
+                            email={email} 
+                            admin={admin} />
                     ))
                     // ; da error porque no es un elemento jsx valido y no se puede renderizar en el navegador
                     // no podemos usar console.log() dentro de un return porque no es un elemento JSX valido, los elementos jsx validos son los que se pueden renderizar en el navegador

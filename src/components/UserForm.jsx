@@ -6,8 +6,9 @@ export const UserForm = ({ userSelected, handlerCloseForm }) => {
 
     const { initialUserForm, handlerAddUser, errors } = useContext(UserContext);
     const [userForm, setUserForm] = useState(initialUserForm);
+    const [checked, setChecked] = useState(userForm.admin);
 
-    const { id, username, password, email } = userForm;
+    const { id, username, password, email, admin } = userForm;
 
     useEffect(() => {
         setUserForm({
@@ -22,6 +23,17 @@ export const UserForm = ({ userSelected, handlerCloseForm }) => {
             ...userForm,
             [name]: value,
             // propiedad computada sirve para que el nombre de la propiedad sea el valor de la variable name
+        });
+    };
+
+    const onCheckboxChange = () => {
+        setChecked(!checked);
+
+        // hacemos setUserForm para actualizar el estado del userForm
+        setUserForm({
+            // hacemos ...userForm para que no perder las propiedades que ya tenia
+            ...userForm,
+            admin: checked,
         });
     };
 
@@ -85,6 +97,16 @@ export const UserForm = ({ userSelected, handlerCloseForm }) => {
                 value={email}
                 onChange={onInputChange} />
             <p className="text-danger">{errors?.email}</p>
+
+            <div className="my-3 form-check">
+                <input type="checkbox"
+                    name="admin"
+                    checked={admin}
+                    className="form-check-input"
+                    onChange={onCheckboxChange}
+                />
+
+            </div>
 
             <input
                 type="hidden"
