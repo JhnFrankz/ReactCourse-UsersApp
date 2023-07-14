@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
 import { UserModalForm } from "../components/UserModalForm";
 import { UsersList } from "../components/UsersList";
-import { UserContext } from "../context/UserContext";
 import { AuthContext } from "../auth/context/AuthContext";
 import { useUsers } from "../hooks/useUsers";
 

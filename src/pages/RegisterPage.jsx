@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { UserForm } from "../components/UserForm";
 import { useParams } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import { useUsers } from "../hooks/useUsers";
 
 export const RegisterPage = () => {
 
-    const { users = [], initialUserForm } = useContext(UserContext);
+    const { users = [], initialUserForm } = useUsers();
     // el userSelected lo manejaremos con un estado propio del componente UserForm para no mezclarlo con el modal de edicion de usuarios
     const [userSelected, setUserSelected] = useState(initialUserForm);
     const { id } = useParams(); // obtengo el id que viene por parametro en la url
