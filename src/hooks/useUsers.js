@@ -1,11 +1,10 @@
-import { useContext, useReducer, useState } from "react";
-import { usersReducer } from "../reducers/usersReducer";
+import { useContext } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { findAll, remove, save, update } from "../services/userService";
 import { AuthContext } from "../auth/context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
-import { initialUserForm, addUser, loadingUsers, onCloseForm, onOpenForm, onUserSelectedForm, removeUser, updateUser } from "../store/slices/users/usersSlice";
+import { initialUserForm, addUser, loadingUsers, onCloseForm, onOpenForm, onUserSelectedForm, removeUser, updateUser, loadingError } from "../store/slices/users/usersSlice";
 
 export const useUsers = () => {
 
@@ -66,15 +65,15 @@ export const useUsers = () => {
         } catch (error) {
             // si existe el error.response y el status es 400
             if (error.response && error.response.status === 400) {
-                setErrors(error.response.data);
+                dispatch(loadingError(error.response.data));
             } else if (error.response && error.response.status === 500 &&
                 error.response.data?.message?.includes('constraint')) {
 
                 if (error.response.data?.message?.includes('UK_username')) {
-                    setErrors({ username: 'El username ya existe!' });
+                    dispatch(loadingError({ username: 'El username ya existe!' }));
                 }
                 if (error.response.data?.message?.includes('UK_email')) {
-                    setErrors({ email: 'El email ya existe!' });
+                    dispatch(loadingError({ email: 'El email ya existe!' }));
                 }
             } else if (error.response?.status === 401) {
                 handlerLogout();
@@ -129,7 +128,7 @@ export const useUsers = () => {
 
     const handlerCloseForm = () => {
         dispatch(onCloseForm());
-        setErrors({});
+        dispatch(loadingError({}));
     };
 
     return {
