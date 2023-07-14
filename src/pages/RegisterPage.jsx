@@ -13,7 +13,6 @@ export const RegisterPage = () => {
 
     // cada vez que cambie el id, se ejecuta el useEffect
     useEffect(() => {
-        console.log('id', id);
         if (id) {
             // si encuentra un usuario con el id que viene por parametro, lo asigna a la variable user, sino asigna el initialUserForm
             const user = users.find(u => u.id == id) || initialUserForm;
