@@ -1,19 +1,15 @@
-import { useReducer } from "react";
-import { loginReducer } from "../reducers/loginReducer";
 import Swal from "sweetalert2";
 import { loginUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
-
-// si existe el login en el sessionStorage, se obtiene, sino se crea un objeto con los valores por defecto
-const initialLogin = JSON.parse(sessionStorage.getItem('login')) || {
-    isAuth: false,
-    isAdmin: false,
-    user: undefined,
-};
+import { useDispatch, useSelector } from "react-redux";
+import { onLogin, onLogout } from "../../store/slices/auth/authSlice";
 
 export const useAuth = () => {
 
-    const [login, dispatch] = useReducer(loginReducer, initialLogin);
+    const dispatch = useDispatch();
+    // traemos los valores del estado auth del store
+    const {user, isAdmin, isAuth} = useSelector(state => state.auth);
+    // const [login, dispatch] = useReducer(loginReducer, initialLogin);
     const navigate = useNavigate();
 
     // handler para el login, se llama desde el componente LoginPage
@@ -29,10 +25,7 @@ export const useAuth = () => {
             // tres formas de obtener username: claims.sub, claims.username y response.data.username
             const user = { username: claims.sub };
 
-            dispatch({
-                type: 'login',
-                payload: { user, isAdmin: claims.isAdmin },
-            });
+            dispatch(onLogin({ user, isAdmin: claims.isAdmin }));
 
             sessionStorage.setItem('login', JSON.stringify({
                 isAuth: true,
@@ -56,18 +49,18 @@ export const useAuth = () => {
 
     // handler para cerrar sesión, se llama desde el componente UsersPage
     const handlerLogout = () => {
-        // llama al reducer con el type logout y payload undefined para que se reinicie el estado del login
-        dispatch({
-            type: 'logout',
-        });
-
+        dispatch(onLogout())
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('login');
         sessionStorage.clear();
     };
 
     return {
-        login,
+        login: {
+            user,
+            isAdmin,
+            isAuth,
+        },
         handlerLogin,
         handlerLogout,
     };
