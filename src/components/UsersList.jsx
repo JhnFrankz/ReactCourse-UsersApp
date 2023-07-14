@@ -1,12 +1,11 @@
-import { useContext } from "react";
 import { UserRow } from "./UserRow";
-import { AuthContext } from "../auth/context/AuthContext";
 import { useUsers } from "../hooks/useUsers";
+import { useAuth } from "../auth/hooks/useAuth";
 
 export const UsersList = () => {
 
     const { users } = useUsers();
-    const { login } = useContext(AuthContext);
+    const { login } = useAuth();
 
     return (
         <table className="table table-hover table-striped">

@@ -9,6 +9,7 @@ export const useAuth = () => {
     const dispatch = useDispatch();
     // traemos los valores del estado auth del store
     const {user, isAdmin, isAuth} = useSelector(state => state.auth);
+    
     // const [login, dispatch] = useReducer(loginReducer, initialLogin);
     const navigate = useNavigate();
 

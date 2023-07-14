@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { UserModalForm } from "../components/UserModalForm";
 import { UsersList } from "../components/UsersList";
-import { AuthContext } from "../auth/context/AuthContext";
 import { useUsers } from "../hooks/useUsers";
+import { useAuth } from "../auth/hooks/useAuth";
 
 export const UsersPage = () => {
 
@@ -13,7 +13,7 @@ export const UsersPage = () => {
         getUsers,
     } = useUsers();
 
-    const { login } = useContext(AuthContext);
+    const { login } = useAuth();
 
     useEffect(() => {
         getUsers(); // funcion para cargar los usuarios
