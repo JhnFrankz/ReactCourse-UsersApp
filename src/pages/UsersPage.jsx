@@ -9,6 +9,7 @@ export const UsersPage = () => {
     const {
         users,
         visibleForm,
+        isLoading,
         handlerOpenForm,
         getUsers,
     } = useUsers();
@@ -18,6 +19,18 @@ export const UsersPage = () => {
     useEffect(() => {
         getUsers(); // funcion para cargar los usuarios
     }, []);
+
+    // si esta cargando se muestra un mensaje, sino el listado de usuarios
+    if (isLoading) {
+        return (
+            <div className="container my-4">
+                {/* <h4>Cargando ...</h4> */}
+                <div className="spinner-border text-info" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>
