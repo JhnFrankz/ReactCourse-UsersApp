@@ -4,6 +4,7 @@ import { UsersList } from "../components/UsersList";
 import { useUsers } from "../hooks/useUsers";
 import { useAuth } from "../auth/hooks/useAuth";
 import { useParams } from "react-router-dom";
+import { Paginator } from "../components/Paginator";
 
 export const UsersPage = () => {
 
@@ -63,7 +64,7 @@ export const UsersPage = () => {
                                 <div className="alert alert-warning">No hay usuarios en el sistema!</div>
                                 : <>
                                     <UsersList />
-
+                                    <Paginator url={"/users/page"} />
                                 </>
                         }
                     </div>
