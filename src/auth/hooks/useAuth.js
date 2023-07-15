@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import { loginUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { onLogin, onLogout } from "../../store/slices/auth/authSlice";
+import { onInitLogin, onLogin, onLogout } from "../../store/slices/auth/authSlice";
 
 export const useAuth = () => {
 
@@ -17,6 +17,7 @@ export const useAuth = () => {
     const handlerLogin = async ({ username, password }) => {
 
         try {
+            dispatch(onInitLogin());
             // response contiene el data que contiene el token
             const response = await loginUser({ username, password });
             const token = response.data.token;
@@ -38,6 +39,7 @@ export const useAuth = () => {
 
             navigate('/users');
         } catch (error) {
+            dispatch(onLogout());
             if (error.response?.status === 401) {
                 Swal.fire('Error Login', 'Username o password inválidos', 'error');
             } else if (error.response?.status === 403) {

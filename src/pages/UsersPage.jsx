@@ -23,7 +23,7 @@ export const UsersPage = () => {
     // si esta cargando se muestra un mensaje, sino el listado de usuarios
     if (isLoading) {
         return (
-            <div className="container my-4">
+            <div className="container my-4 text-center">
                 {/* <h4>Cargando ...</h4> */}
                 <div className="spinner-border text-info" role="status">
                     <span className="visually-hidden">Loading...</span>
