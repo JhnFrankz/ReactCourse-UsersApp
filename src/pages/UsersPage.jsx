@@ -3,8 +3,12 @@ import { UserModalForm } from "../components/UserModalForm";
 import { UsersList } from "../components/UsersList";
 import { useUsers } from "../hooks/useUsers";
 import { useAuth } from "../auth/hooks/useAuth";
+import { useParams } from "react-router-dom";
 
 export const UsersPage = () => {
+
+    // userParams devuelve un objeto con los parametros de la url
+    const { page } = useParams();
 
     const {
         users,
@@ -17,8 +21,8 @@ export const UsersPage = () => {
     const { login } = useAuth();
 
     useEffect(() => {
-        getUsers(); // funcion para cargar los usuarios
-    }, []);
+        getUsers(page); // funcion para cargar los usuarios
+    }, [, page]); // se ejecuta al inicio y cuando cambia el n° de pagina
 
     // si esta cargando se muestra un mensaje, sino el listado de usuarios
     if (isLoading) {
@@ -57,8 +61,10 @@ export const UsersPage = () => {
                         {
                             users.length === 0 ?
                                 <div className="alert alert-warning">No hay usuarios en el sistema!</div>
-                                :
-                                <UsersList />
+                                : <>
+                                    <UsersList />
+
+                                </>
                         }
                     </div>
                 </div>

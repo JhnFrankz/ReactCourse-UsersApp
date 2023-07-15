@@ -2,21 +2,18 @@ import usersApi from "../apis/usersApi";
 
 const BASE_URL = ''; // no hace falta poner nada porque ya lo tenemos en el usersApi
 
-// el config es para enviar el token en el header de las peticiones
-// es una funcion ya que el token puede cambiar, si fuera una constante no se actualizaría
-/* const config = () => {
-    return {
-        headers: {
-            "Authorization": sessionStorage.getItem("token"),
-            "Content-Type": "application/json",
-        }
-    }
-} */
-
 export const findAll = async () => {
-
     try {
         const response = await usersApi.get(BASE_URL);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const findAllPages = async (page = 0) => {
+    try {
+        const response = await usersApi.get(`${BASE_URL}/page/${page}`);
         return response;
     } catch (error) {
         throw error;

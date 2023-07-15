@@ -1,13 +1,13 @@
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { findAll, remove, save, update } from "../services/userService";
+import { findAllPages, remove, save, update } from "../services/userService";
 import { useDispatch, useSelector } from "react-redux";
 import { initialUserForm, addUser, loadingUsers, onCloseForm, onOpenForm, onUserSelectedForm, removeUser, updateUser, loadingError } from "../store/slices/users/usersSlice";
 import { useAuth } from "../auth/hooks/useAuth";
 
 export const useUsers = () => {
 
-    const { users, userSelected, visibleForm, errors, isLoading } = useSelector(state => state.users);
+    const { users, userSelected, visibleForm, errors, isLoading, paginator } = useSelector(state => state.users);
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -17,11 +17,10 @@ export const useUsers = () => {
     // esta función se ejecuta cuando se carga el componente
     // y se encarga de obtener los usuarios de la API
     // se actualiza users con los usuarios obtenidos en el contexto
-    const getUsers = async () => {
+    const getUsers = async (page = 0) => {
 
         try {
-            const result = await findAll();
-            console.log(result);
+            const result = await findAllPages(page);
             // type es el nombre de la función y el payload es el parámetro
             dispatch(loadingUsers(result.data));
         } catch (error) {
@@ -137,6 +136,7 @@ export const useUsers = () => {
         visibleForm,
         errors,
         isLoading,
+        paginator,
         handlerAddUser,
         handlerRemoveUser,
         handlerUserSelectedForm,

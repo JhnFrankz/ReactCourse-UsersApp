@@ -14,7 +14,9 @@ export const UserRoutes = () => {
             <Navbar />
 
             <Routes>
+                {/* Si se llama a /users el page por defecto es 0 */}
                 <Route path="users" element={<UsersPage />} />
+                <Route path="users/page/:page" element={<UsersPage />} />
                 {
                     !isAdmin ||
                     <>
