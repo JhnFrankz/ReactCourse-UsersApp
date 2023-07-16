@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 export const Paginator = ({ url }) => {
 
     const { paginator } = useSelector(state => state.users);
+    console.log(paginator);
 
     return (
         <>
-            {paginator?.length === 0 || // si no hay usuarios no se muestra la paginacion
+            {paginator?.totalPages == 1 || // si hay una sola pagina no se muestra la paginacion
                 <ul className="pagination">
                     {paginator.number == 0 || // si es la 1° pagina no se muestra el boton de anterior
                         <li className="page-item">
