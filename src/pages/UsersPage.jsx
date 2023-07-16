@@ -15,6 +15,7 @@ export const UsersPage = () => {
         users,
         visibleForm,
         isLoading,
+        paginator,
         handlerOpenForm,
         getUsers,
     } = useUsers();
@@ -64,7 +65,7 @@ export const UsersPage = () => {
                                 <div className="alert alert-warning">No hay usuarios en el sistema!</div>
                                 : <>
                                     <UsersList />
-                                    <Paginator url={"/users/page"} />
+                                    <Paginator url={"/users/page"} paginator={paginator} />
                                 </>
                         }
                     </div>
